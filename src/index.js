@@ -767,7 +767,8 @@ function WebSqlPouch(opts, callback) {
               allRows.push(result.rows.item(index));
             }
             if (finishedCount === keyChunks.length) {
-              processResult(allRows);
+              
+              (allRows);
             }
 
           });
@@ -800,6 +801,7 @@ function WebSqlPouch(opts, callback) {
 
         for (var i = 0, l = rows.length; i < l; i++) {
           var item = rows[i];
+          item.metadata = item.metadata || JSON.stringify({});  // was added by Efrat to handle data corruption
           var metadata = safeJsonParse(item.metadata);
           var id = metadata.id;
           var data = unstringifyDoc(item.data, id, item.rev);
